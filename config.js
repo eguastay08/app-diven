@@ -1,0 +1,8 @@
+import {API_URL,EXPO_CLIENT_ID,IOS_CLIENT_ID,ANDROID_CLIENT_ID} from '@env'
+
+export default {
+    API_URL,
+    EXPO_CLIENT_ID,
+    IOS_CLIENT_ID,
+    ANDROID_CLIENT_ID,
+}
