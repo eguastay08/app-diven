@@ -1,12 +1,12 @@
-import {RefreshControl, ScrollView, Text, View} from "react-native";
+import {RefreshControl, ScrollView} from "react-native";
 import {useCallback, useEffect, useState} from "react";
 import {connect} from "react-redux";
 import store from "../../redux/store";
-import {getProjects, getSurvey, getSurveys} from "../../redux/actionCreators";
+import {getSurveys} from "../../redux/actionCreators";
 import Card from "./Card";
 
 const SurveysScreen=(props)=>{
-    const [id, setId] = useState(props.route.params.id);
+    const [id] = useState(props.route.params.id);
     const {surveys}=props
 
     const [refreshing, setRefreshing] = useState(false);

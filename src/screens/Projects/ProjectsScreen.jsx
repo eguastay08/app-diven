@@ -1,7 +1,7 @@
-import {RefreshControl, ScrollView, Text, View} from "react-native";
+import {RefreshControl, ScrollView} from "react-native";
 import {connect} from "react-redux";
 import {useCallback, useEffect, useState} from "react";
-import {getProjects, getSurveys} from "../../redux/actionCreators";
+import {getProjects} from "../../redux/actionCreators";
 import store from "../../redux/store";
 import Card from "./Card";
 

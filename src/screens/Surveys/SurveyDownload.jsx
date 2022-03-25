@@ -1,4 +1,4 @@
-import {RefreshControl, ScrollView, Text, ToastAndroid, View} from "react-native";
+import {RefreshControl, ScrollView, ToastAndroid} from "react-native";
 import {useCallback, useEffect, useState} from "react";
 import Card from "./Card";
 import AsyncStorage from "@react-native-async-storage/async-storage";

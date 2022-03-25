@@ -14,17 +14,16 @@ import {ProgressBar} from "react-native-paper";
 const SurveyScreen=(props)=>{
     const {survey}=props
     const [section, setSection] = useState(0);
-    const [id, setId] = useState(props.route.params.id);
-    const [offline, setOffline] = useState(props.route.params.offline);
+    const [id] = useState(props.route.params.id);
+    const [offline] = useState(props.route.params.offline);
     const [submit, setSubmit] = useState(false);
     const [submitTxt, setSubmitTxt] = useState('');
     const [answers, setAnswers] = useState([]);
     const [surveyData, setSurveyData] = useState(survey);
-    const [errorLocation, setErrorLocation] = useState(false);
     const [coords, setCoords] = useState(null);
     const [progress, setProgress] = useState(0);
 
-    const{postanswer,cod_project}=props
+    const{postanswer}=props
 
     useEffect(() => {
         return () => store.dispatch(getSurvey())

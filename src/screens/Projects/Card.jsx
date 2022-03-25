@@ -5,7 +5,7 @@ import {useNavigation} from "@react-navigation/native";
 const Card=(props)=>{
     const navigation=useNavigation()
 
-    const {name, resolution,cod_project,detail,dpa,onPress} =props
+    const {name, resolution,cod_project,detail,dpa} =props
     return<TouchableOpacity style={styles.card} onPress={()=>navigation.navigate("surveys",{id:cod_project})}>
         <Text style={styles.title}>
             {name}
