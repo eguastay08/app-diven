@@ -1,12 +1,11 @@
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import HomeScreen from "../screens/HomeScreen";
-import {NavigationContainer} from "@react-navigation/native";
-import ProjectsScreen from "../screens/ProjectsScreen";
+import HomeScreen from "../screens/Home/HomeScreen";
+import ProjectsScreen from "../screens/Projects/ProjectsScreen";
 import { FontAwesome,Ionicons } from '@expo/vector-icons';
 import {createStackNavigator} from "@react-navigation/stack";
-import SurveysScreen from "../screens/SurveysScreen";
-import LogoutScreen from "../screens/LogoutScreen";
-import {StatusBar} from "expo-status-bar";
+import SurveysScreen from "../screens/Surveys/SurveysScreen";
+import SurveyScreen from "../screens/Survey/SurveyScreen";
+import SurveyDownload from "../screens/Surveys/SurveyDownload";
 
 const Tab=createBottomTabNavigator()
 const ProjectStackNavigator=createStackNavigator();
@@ -30,8 +29,37 @@ const ProjectStack=()=>{
                     headerTitle:'Encuestas'
                 }}
             />
+            <ProjectStackNavigator.Screen
+                name="survey"
+                component={SurveyScreen}
+                options={{
+                    headerTitle:'Encuesta'
+                }}
+            />
         </ProjectStackNavigator.Navigator>
     )
+}
+
+const SurveysDownloadStack=()=>{
+    return (<ProjectStackNavigator.Navigator
+        initialRouteName="ProjectsScreen"
+    >
+        <ProjectStackNavigator.Screen
+            name="downloadedsurveys"
+            component={SurveyDownload}
+            options={{
+                headerTitle:'Encuestas Descargadas'
+            }}
+        />
+        <ProjectStackNavigator.Screen
+            name="survey"
+            component={SurveyScreen}
+            options={{
+                headerTitle:'Encuesta'
+            }}
+        />
+
+    </ProjectStackNavigator.Navigator>)
 }
 
 const Tabs=()=>{
@@ -50,8 +78,7 @@ const Tabs=()=>{
                     tabBarIcon:({color,size})=>(
                         <FontAwesome name="home" size={size} color={color} />
                     ),
-                    headerShown:false,
-                    tabBarBadge:50
+                    headerShown:false
                 }}
 
             />
@@ -67,13 +94,14 @@ const Tabs=()=>{
                 }}
             />
             <Tab.Screen
-                name="exit"
-                component={LogoutScreen}
+                name="download"
+                component={SurveysDownloadStack}
                 options={{
-                    tabBarLabel:'Salir',
+                    tabBarLabel:'Descargas',
                     tabBarIcon:({color,size})=>(
-                        <Ionicons name="exit" size={size} color={color} />
-                    )
+                        <FontAwesome name="download" size={size} color={color} />
+                    ),
+                    headerShown:false
                 }}
             />
         </Tab.Navigator>

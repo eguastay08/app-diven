@@ -9,6 +9,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Text, ToastAndroid, View} from "react-native";
 import {StatusBar} from "expo-status-bar";
 import * as Google from 'expo-auth-session/providers/google';
+import * as WebBrowser from 'expo-web-browser';
+
+WebBrowser.maybeCompleteAuthSession();
 
 const LoginScreen=({navigation})=>{
     const [email, setEmail] = useState('');
@@ -42,7 +45,6 @@ const LoginScreen=({navigation})=>{
                     navigation.replace('loading')
             })
             .catch(er => {
-                console.log(er)
                 setDisabled(false)
                 setError(true)
             })
@@ -116,7 +118,7 @@ const LoginScreen=({navigation})=>{
                     accessibilityLabel="Learn more about this purple button"
                     disabled={disabled}
                     icon="google"
-                    onPress={()=>{setDisabled(true); promptAsync()}}
+                    onPress={()=>{setDisabled(true); promptAsync({useProxy: false, showInRecents: true})}}
                 />
             </View>
             <View style={styles.footer}>

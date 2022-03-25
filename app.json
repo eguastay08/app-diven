@@ -5,6 +5,7 @@
     "version": "1.0.0-BETA-1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "scheme": "com.devsoftec.diven",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
@@ -17,7 +18,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.devsoftec.diven",
+      "buildNumber": "1",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "location"
+        ]
+      }
     },
     "android": {
       "splash": {

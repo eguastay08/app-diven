@@ -1,0 +1,4 @@
+export const GET_PROJECTS="GET_PROJECTS"
+export const GET_SURVEYS="GET_SURVEYS"
+export const GET_SURVEY="GET_SURVEY"
+export const POST_ANSWER="POST_ANSWER"
