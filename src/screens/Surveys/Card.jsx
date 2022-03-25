@@ -12,6 +12,7 @@ const Card=(props)=>{
     const {name,cod_project,tot,date_init,date_finally,status,detail,max_answers,cod_survey,survey,offline,handleTrash} =props
     const [download, setDownload] = useState(false);
     const [showDownload, setShowDownload] = useState(true);
+    const [responses, setResponses] = useState(0);
     const navigation=useNavigation()
 
     let dt = new Date(date_init)
@@ -54,6 +55,21 @@ const Card=(props)=>{
         }
     }, []);
 
+    useEffect(() => {
+        navigation.addListener('focus', async () => {
+            const answers = await AsyncStorage.getItem('@responses')
+            const ans=JSON.parse(answers)
+            if(Array.isArray(ans)){
+                setResponses(0)
+                ans.map((e)=>{
+                    if(e.cod_survey===cod_survey){
+                        setResponses((responses)=>{return responses+1})
+                    }
+                })
+            }
+        });
+    }, [navigation]);
+
 
     return<TouchableOpacity  style={styles.card} onPress={()=>navigation.navigate("survey",{id:cod_survey,offline:offline,cod_project:cod_project})}>
         <View style={styles.header}>
@@ -69,6 +85,7 @@ const Card=(props)=>{
             <View style={styles.csubtitle}><Text style={styles.subtitle}>Fecha Fin:</Text><Text>{df}</Text></View>
             <View style={styles.csubtitle}><Text style={styles.subtitle}>Estado:</Text><Text>{status?'Producción':'Diseño'}</Text></View>
             <View style={styles.csubtitle}><Text style={styles.subtitle}>Respuestas:</Text><Text>{tot?`${tot} de ${max_answers}`:max_answers}</Text></View>
+            {offline?<View style={styles.csubtitle}><Text style={styles.subtitle}>Pendiente por Sincronizar:</Text><Text>{responses}</Text></View>:null}
             <View style={styles.csubtitle}><Text style={styles.subtitle}>Detalle:</Text><Text>{detail}</Text></View>
         </View>
     </TouchableOpacity>
