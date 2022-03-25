@@ -13,7 +13,7 @@ import Axios from "axios";
 const API_URL=config.API_URL
 
 
-const HomeScreen=({postanswer,postAnswer},props,isFocused)=>{
+const HomeScreen=({postanswer,postAnswer})=>{
     const [name, setName] = useState()
     const [syn, setSyn] = useState(0);
     const navigation=useNavigation()
@@ -148,10 +148,6 @@ const HomeScreen=({postanswer,postAnswer},props,isFocused)=>{
                     icon='refresh'
                     onPress={syncup}
                     disabled={synTxt}
-                />
-                <Card
-                    title="Soporte"
-                    icon='gears'
                 />
                 <Card
                     title="Salir"
