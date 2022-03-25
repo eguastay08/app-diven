@@ -1,4 +1,4 @@
-import {RefreshControl, ScrollView, ToastAndroid} from "react-native";
+import {Alert, RefreshControl, ScrollView, ToastAndroid} from "react-native";
 import {useCallback, useEffect, useState} from "react";
 import Card from "./Card";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -52,12 +52,23 @@ const SurveyDownload=()=>{
         }
     }
 
+    const handleTrashModal=(cod_survey)=>{
+        Alert.alert('Eliminar Encuesta', '¿Está Seguro?', [
+            {
+                text: 'Cancelar',
+                style: 'cancel',
+            },
+            { text: 'OK', onPress: () =>handleTrash(cod_survey)},
+        ]);
+    }
+
+
     return (
         <ScrollView
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         >
             {Array.isArray(surveys)?surveys.map((e,i)=>{
-                return <Card handleTrash={handleTrash} offline={true} key={i} {...e.survey}/>
+                return <Card handleTrash={handleTrashModal} offline={true} key={i} {...e.survey}/>
             }):null}
         </ScrollView>
     )

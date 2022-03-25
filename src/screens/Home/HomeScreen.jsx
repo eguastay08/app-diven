@@ -53,7 +53,7 @@ const HomeScreen=({postanswer,postAnswer})=>{
     }
 
     const logoutModal=()=>{
-        Alert.alert('Salir', '¿Esta seguro de Cerrar sesión?', [
+        Alert.alert('Salir', '¿Está seguro de cerrar sesión?', [
             {
                 text: 'Cancelar',
                 style: 'cancel',
