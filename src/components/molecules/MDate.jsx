@@ -5,7 +5,7 @@ import { TextInput as TI } from 'react-native-paper';
 import {View} from "react-native";
 
 const MDate= ({label,onChangeText,cod_question})=>{
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState();
     const [show, setShow] = useState(false);
 
     const onChange = (event, selectedDate) => {
@@ -25,12 +25,13 @@ const MDate= ({label,onChangeText,cod_question})=>{
             <TextInput
                 label={label}
                 mode='outlined'
-                value={date.toISOString().split('T')[0]}
+                value={date?date.toISOString().split('T')[0]:null}
+                disabled
                 right={<TI.Icon  onPress={showDatepicker} name="calendar" />}
             />
             {show && (
                 <DateTimePicker
-                    value={date}
+                    value={new Date()}
                     mode='date'
                     onChange={onChange}
                 />
