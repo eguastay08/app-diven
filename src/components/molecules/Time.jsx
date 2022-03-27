@@ -12,7 +12,7 @@ const Time= ({label,cod_question,onChangeText})=>{
         const currentDate = selectedDate;
         setShow(false);
         setDate(currentDate);
-        onChangeText(cod_question, date.getHours() + ':' + date.getMinutes())
+        onChangeText(cod_question, date.toLocaleTimeString().split(':')[0] + ':' + date.toLocaleTimeString().split(':')[1])
     };
 
     const showMode = () => {
@@ -29,7 +29,7 @@ const Time= ({label,cod_question,onChangeText})=>{
             <TextInput
                 label={label}
                 mode='outlined'
-                value={date? date.getHours() + ':' + date.getMinutes():null }
+                value={date? date.toLocaleTimeString().split(':')[0] + ':' + date.toLocaleTimeString().split(':')[1]:null }
                 disabled
                 right={<TI.Icon  onPress={showDatepicker} name="clock" />}
             />
