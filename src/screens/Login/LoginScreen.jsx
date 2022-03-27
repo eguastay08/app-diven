@@ -118,7 +118,7 @@ const LoginScreen=({navigation})=>{
                     accessibilityLabel="Learn more about this purple button"
                     disabled={disabled}
                     icon="google"
-                    onPress={()=>{setDisabled(true); promptAsync({useProxy: false, showInRecents: true})}}
+                    onPress={()=>{setDisabled(true); promptAsync()}}
                 />
             </View>
             <View style={styles.footer}>
