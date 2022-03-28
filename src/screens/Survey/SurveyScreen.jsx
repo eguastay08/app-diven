@@ -71,10 +71,10 @@ const SurveyScreen=(props)=>{
 
     const handleOnPress= async ()=>{
         let error=false;
-        setSubmitTxt('Guardando')
         answers.map((e)=>{
             if(e.required&&(e.answer===''||Array.isArray(e.answer)&&e.answer.length===0)){
                 error=true
+                console.log(JSON.stringify(e))
                 ToastAndroid.show('Cuestionario Incompleto', ToastAndroid.SHORT)
             }
         })
@@ -95,7 +95,6 @@ const SurveyScreen=(props)=>{
                     }
             }
         }
-
     }
 
 
