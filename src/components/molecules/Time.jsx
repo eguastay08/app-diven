@@ -12,7 +12,7 @@ const Time= ({label,cod_question,onChangeText})=>{
         const currentDate = selectedDate;
         setShow(false);
         setDate(currentDate);
-        onChangeText(cod_question, date.toLocaleTimeString().split(':')[0] + ':' + date.toLocaleTimeString().split(':')[1])
+        onChangeText(cod_question, selectedDate.toLocaleTimeString().split(':')[0] + ':' + selectedDate.toLocaleTimeString().split(':')[1])
     };
 
     const showMode = () => {
@@ -35,7 +35,7 @@ const Time= ({label,cod_question,onChangeText})=>{
             />
             {show && (
                 <DateTimePicker
-                    value={new Date()}
+                    value={date?date:new Date()}
                     mode='time'
                     onChange={onChange}
                 />

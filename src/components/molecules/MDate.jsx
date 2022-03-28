@@ -31,7 +31,7 @@ const MDate= ({label,onChangeText,cod_question})=>{
             />
             {show && (
                 <DateTimePicker
-                    value={new Date()}
+                    value={date?date:new Date()}
                     mode='date'
                     onChange={onChange}
                 />
