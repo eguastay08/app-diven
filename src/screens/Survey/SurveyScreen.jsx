@@ -144,7 +144,7 @@ const SurveyScreen=(props)=>{
             props.postAnswer(null,null)
             setSubmitTxt("Guardar")
         }else if(postanswer?.postanswer?.code===201){
-            ToastAndroid.show('Se guardo con exito', ToastAndroid.SHORT)
+            ToastAndroid.show('Se guardó con éxito', ToastAndroid.SHORT)
             props.postAnswer(null,null)
             props.navigation.replace('surveys',{id:props.route.params.cod_project})
         }
