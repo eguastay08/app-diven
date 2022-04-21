@@ -1,4 +1,4 @@
-import {View} from "react-native";
+import {Text, View} from "react-native";
 import TextInput from "../molecules/TextInput";
 import {useEffect, useState} from "react";
 
@@ -18,13 +18,16 @@ const ShortAnswer=({label,cod_question,onChange,required})=>{
     }, [value]);
 
 
-    return  <TextInput
-        label={label}
+    return  <>
+        <Text style={label}>
+            {label}
+        </Text>
+        <TextInput
         mode='outlined'
         value={value}
         onChangeText={v=>setValue(v)}
         error={error}
-    />
+    /></>
 }
 
 export default ShortAnswer

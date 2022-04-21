@@ -30,14 +30,14 @@ const Question=(props)=>{
         {type==='short_answer'?<View>
                <ShortAnswer
                    cod_question={cod_question}
-                   label={`${question} ${required?'*':''}`}
+                   label={`${id}. ${question} ${required?'*':''}`}
                    onChange={handleSave}
                    required={required}
                />
             </View>:
             type==='numerical'?<View>
             <TextInput
-                label={`${question} ${required?'*':''}`}
+                label={`${id}. ${question} ${required?'*':''}`}
                 mode='outlined'
                 numeric
                 keyboardType={'numeric'}
@@ -46,7 +46,7 @@ const Question=(props)=>{
         </View>:
                 type==='long_text'?<View>
                 <TextInput
-                    label={`${question} ${required?'*':''}`}
+                    label={`${id}. ${question} ${required?'*':''}`}
                     mode='outlined'
                     onChangeText={(ans)=>{handleSave(cod_question,ans)}}
                 />
@@ -54,7 +54,7 @@ const Question=(props)=>{
             type==='multiple_choice'?<View>
                 <RadioButton
                     cod_question={cod_question}
-                    question={`${question} ${required?'*':''}`}
+                    question={`${id}. ${question} ${required?'*':''}`}
                     options={options}
                     onChange={handleSave}
                 />
@@ -62,7 +62,7 @@ const Question=(props)=>{
                 type==='checkboxes'?<View>
                 <CheckboxGroup
                     cod_question={cod_question}
-                    question={`${question} ${required?'*':''}`}
+                    question={`${id}. ${question} ${required?'*':''}`}
                     options={options}
                     onChange={handleSave}
                 />
@@ -70,7 +70,7 @@ const Question=(props)=>{
                     :type==='dropdown'?<View>
                     <Dropdown
                         cod_question={cod_question}
-                        question={`${question} ${required?'*':''}`}
+                        question={`${id}. ${question} ${required?'*':''}`}
                         options={options}
                         onChange={handleSave}
                     />
@@ -85,7 +85,7 @@ const Question=(props)=>{
                             type==='time'?<View>
                                 <Time
                                     cod_question={cod_question}
-                                    label={`${question} ${required?'*':''}`}
+                                    label={`${id}. ${question} ${required?'*':''}`}
                                     onChangeText={handleSave}
                                 />
                             </View>:null
