@@ -34,20 +34,22 @@ const SurveyScreen=(props)=>{
     }, [survey]);
 
 
-    useEffect(async () => {
+    useEffect( () => {
         if (!offline){
             store.dispatch(getSurvey(id))
             setAnswers([])
         }else{
-            const surveys = await AsyncStorage.getItem('@surveys')
-            const data=JSON.parse(surveys)
-            if(Array.isArray(data)){
-                data.map((e)=>{
-                    if(e.survey?.cod_survey===id){
-                        setSurveyData(e)
-                    }
-                })
-            }
+            (async () => {
+                const surveys = await AsyncStorage.getItem('@surveys')
+                const data=JSON.parse(surveys)
+                if(Array.isArray(data)){
+                    data.map((e)=>{
+                        if(e.survey?.cod_survey===id){
+                            setSurveyData(e)
+                        }
+                    })
+                }
+            })();
         }
     }, [id]);
 
@@ -109,6 +111,7 @@ const SurveyScreen=(props)=>{
                "answers":answers
            }
            if(!offline){
+               console.log(data)
                props.postAnswer(id,data)
            }else{
                try{

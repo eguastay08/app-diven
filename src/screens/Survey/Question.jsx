@@ -8,6 +8,7 @@ import MDate from "../../components/molecules/MDate";
 import Time from "../../components/molecules/Time";
 import {useEffect} from "react";
 import ShortAnswer from "../../components/Questions/ShortAnswer";
+import TextInputImg from "../../components/molecules/TextInputImg";
 
 
 const Question=(props)=>{
@@ -78,7 +79,7 @@ const Question=(props)=>{
                         type==='date'?<View>
                         <MDate
                             cod_question={cod_question}
-                            label={`${question} ${required?'*':''}`}
+                            label={`${id}. ${question} ${required?'*':''}`}
                             onChangeText={handleSave}
                         />
                     </View>:
@@ -86,6 +87,14 @@ const Question=(props)=>{
                                 <Time
                                     cod_question={cod_question}
                                     label={`${id}. ${question} ${required?'*':''}`}
+                                    onChangeText={handleSave}
+                                />
+                            </View>:
+                                type==='image'?<View>
+                                <TextInputImg
+                                    cod_question={cod_question}
+                                    label={`${id}. ${question} ${required?'*':''}`}
+                                    mode='outlined'
                                     onChangeText={handleSave}
                                 />
                             </View>:null

@@ -25,34 +25,38 @@ const Card=(props)=>{
         setDownload(true)
     }
 
-    useEffect(async () => {
+    useEffect( () => {
         setDownload(false)
         if(download){
-            setShowDownload(false)
-            let surveys = await AsyncStorage.getItem('@surveys')
-            if(surveys===null){
-                const data=[survey]
-                await AsyncStorage.setItem('@surveys', JSON.stringify(data))
-                ToastAndroid.show('Se descargo', ToastAndroid.SHORT)
-            }else{
-                const data=JSON.parse(surveys)
-                data.push(survey)
-                await AsyncStorage.setItem('@surveys', JSON.stringify(data))
-                ToastAndroid.show('Se descargo', ToastAndroid.SHORT)
-            }
+            (async () => {
+                setShowDownload(false)
+                let surveys = await AsyncStorage.getItem('@surveys')
+                if(surveys===null){
+                    const data=[survey]
+                    await AsyncStorage.setItem('@surveys', JSON.stringify(data))
+                    ToastAndroid.show('Se descargo', ToastAndroid.SHORT)
+                }else{
+                    const data=JSON.parse(surveys)
+                    data.push(survey)
+                    await AsyncStorage.setItem('@surveys', JSON.stringify(data))
+                    ToastAndroid.show('Se descargo', ToastAndroid.SHORT)
+                }
+            })();
         }
     }, [survey]);
 
-    useEffect(async () => {
-        const surveys = await AsyncStorage.getItem('@surveys')
-        const data=JSON.parse(surveys)
-        if(Array.isArray(data)){
-            data.map((e)=>{
-                if(e.survey.cod_survey===cod_survey){
-                    setShowDownload(false)
-                }
-            })
-        }
+    useEffect( () => {
+        (async () => {
+            const surveys = await AsyncStorage.getItem('@surveys')
+            const data=JSON.parse(surveys)
+            if(Array.isArray(data)){
+                data.map((e)=>{
+                    if(e.survey.cod_survey===cod_survey){
+                        setShowDownload(false)
+                    }
+                })
+            }
+        })();
     }, []);
 
     useEffect(() => {

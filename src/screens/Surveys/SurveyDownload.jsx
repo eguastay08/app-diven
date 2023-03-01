@@ -8,12 +8,14 @@ const SurveyDownload=()=>{
     const [surveys, setSurveys] = useState([]);
 
 
-    useEffect(async () => {
-        setSurveys([])
-        const surveys = await AsyncStorage.getItem('@surveys')
-        const data=JSON.parse(surveys)
-        setSurveys(data)
-        return () => setSurveys([]) ;
+    useEffect( () => {
+        (async () => {
+            setSurveys([])
+            const surveys = await AsyncStorage.getItem('@surveys')
+            const data=JSON.parse(surveys)
+            setSurveys(data)
+            return () => setSurveys([]) ;
+        })();
     }, []);
 
 

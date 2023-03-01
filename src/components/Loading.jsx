@@ -11,37 +11,39 @@ export default function Loading({math,navigation}){
     const [location, setLocation] = useState(false);
     const API_URL=  config.API_URL
 
-    useEffect(async () => {
-        if(location){
-            let token = await AsyncStorage.getItem('@access-token')
-            if(token){
-                token=JSON.parse(token).token;
-                Axios.get(`${API_URL}/api/v1/me`,{
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                })
-                    .then(async  r => {
-                        await AsyncStorage.removeItem('@data-user')
-                        await AsyncStorage.setItem('@data-user', JSON.stringify(r.data.data))
-                        navigation.replace('private')
+    useEffect( () => {
+        if (location) {
+            (async () => {
+                let token = await AsyncStorage.getItem('@access-token')
+                if(token){
+                    token=JSON.parse(token).token;
+                    Axios.get(`${API_URL}/api/v1/me`,{
+                        headers: {
+                            Accept: "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
                     })
-                    .catch( async er => {
-                        if(er.toJSON().message === 'Network Error'){
-                            ToastAndroid.show('Sin Conexión', ToastAndroid.SHORT)
+                        .then(async  r => {
+                            await AsyncStorage.removeItem('@data-user')
+                            await AsyncStorage.setItem('@data-user', JSON.stringify(r.data.data))
                             navigation.replace('private')
-                        }else{
-                            await AsyncStorage.removeItem('@access-token')
-                            navigation.replace('public')
-                        }
-                    })
-            }else{
-                navigation.replace('public')
-            }
-        }
-    }, [location]);
+                        })
+                        .catch( async er => {
+                            if(er.toJSON().message === 'Network Error'){
+                                ToastAndroid.show('Sin Conexión', ToastAndroid.SHORT)
+                                navigation.replace('private')
+                            }else{
+                                await AsyncStorage.removeItem('@access-token')
+                                navigation.replace('public')
+                            }
+                        })
+                }else{
+                    navigation.replace('public')
+                }
+            })();
 
+        }
+    },[location])
 
     useEffect(  ()=>{
         (async () => {
@@ -57,7 +59,6 @@ export default function Loading({math,navigation}){
         })();
 
     })
-
     return (
        <LoadingScreen/>
     );

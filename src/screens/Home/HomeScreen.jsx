@@ -21,7 +21,8 @@ const HomeScreen=({postanswer,postAnswer})=>{
     const [totanswers, setTotAnswers] = useState(0);
     const [token, setToken] = useState();
 
-    useEffect(async () => {
+    useEffect( () => {
+        (async () => {
         const token= await AsyncStorage.getItem('@access-token')
         setToken(JSON.parse(token).token)
         const data=await AsyncStorage.getItem('@data-user')
@@ -31,6 +32,7 @@ const HomeScreen=({postanswer,postAnswer})=>{
         const tot = JSON.parse(resp)
         if(Array.isArray(tot))
             setTotAnswers(tot.length)
+        })();
     }, []);
 
     useEffect(() => {
