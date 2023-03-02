@@ -11,20 +11,6 @@ function TextInputImg(props){
     const [value, setData] = useState({ data: null, img: null });
     const {onChangeText,cod_question}=props
     const API_URL=  config.API_URL
-/*    const openImagePickerAsync = async () => {
-        const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (permissionResult.granted === false) {
-            alert('Permission to access camera roll is required!');
-            return;
-        }
-        const pickerResult = await ImagePicker.launchImageLibraryAsync();
-        if (pickerResult.canceled === true) {
-            return;
-        }
-
-        setSelectedImage(pickerResult.assets[0].uri);
-    };*/
-
     const openImagePickerAsync = async () => {
         const token = await verifyToken()
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();

@@ -111,7 +111,6 @@ const SurveyScreen=(props)=>{
                "answers":answers
            }
            if(!offline){
-               console.log(data)
                props.postAnswer(id,data)
            }else{
                try{
