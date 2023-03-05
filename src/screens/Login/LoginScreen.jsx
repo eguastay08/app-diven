@@ -50,13 +50,13 @@ const LoginScreen=({navigation})=>{
             })
     }
 
- /*   const [request, response, promptAsync] = Google.useAuthRequest({
+    const [request, response, promptAsync] = Google.useAuthRequest({
         expoClientId:config.EXPO_CLIENT_ID,
         iosClientId: config.IOS_CLIENT_ID,
         androidClientId: config.ANDROID_CLIENT_ID,
-    });*/
+    });
 
-/*    useEffect(() => {
+    useEffect(() => {
         if(response)
             if(response.type==='success'){
                 Axios.get(`${API_URL}/auth/google/callback?accessToken=${response.authentication.accessToken}`, {
@@ -80,7 +80,7 @@ const LoginScreen=({navigation})=>{
                 setDisabled(false)
                 ToastAndroid.show('Error al Iniciar Sesión', ToastAndroid.SHORT);
             }
-    }, [response]);*/
+    }, [response]);
 
 
     return (
@@ -118,7 +118,7 @@ const LoginScreen=({navigation})=>{
                     accessibilityLabel="Learn more about this purple button"
                     disabled={disabled}
                     icon="google"
-                    /*onPress={()=>{setDisabled(true); promptAsync()}}*/
+                    onPress={()=>{setDisabled(true); promptAsync()}}
                 />
             </View>
             <View style={styles.footer}>
