@@ -45,6 +45,7 @@ const LoginScreen=({navigation})=>{
                     navigation.replace('loading')
             })
             .catch(er => {
+                console.log(er)
                 setDisabled(false)
                 setError(true)
             })

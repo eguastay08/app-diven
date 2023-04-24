@@ -129,6 +129,7 @@ const SurveyScreen=(props)=>{
                        props.navigation.goBack();
                    })();
                }catch (e) {
+                   console.log(e)
                    ToastAndroid.show('Error al Guardar', ToastAndroid.SHORT)
                    setSubmitTxt("Guardar")
                    setSubmit(false)

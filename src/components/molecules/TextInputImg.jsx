@@ -5,6 +5,7 @@ import * as ImagePicker from "expo-image-picker";
 import config from "../../../config";
 import axios from "axios";
 import {verifyToken} from "../../redux/actionCreators";
+import * as FileSystem from 'expo-file-system';
 
 function TextInputImg(props){
     const [selectedImage, setSelectedImage] = useState(null);
@@ -22,6 +23,11 @@ function TextInputImg(props){
         if (pickerResult.canceled === true) {
             return;
         }
+
+        //offline save
+        const fileName = `diven-${Date.now()}.jpg`;
+        const fileUri = FileSystem.documentDirectory + fileName;
+
         const apiUrl = `${API_URL}/api/v1/image`;
         const formData = new FormData();
         formData.append('file', {
@@ -41,9 +47,21 @@ function TextInputImg(props){
 
             const responseJson = await response.json();
             setSelectedImage(pickerResult.assets[0].uri);
+            console.log(responseJson?.data?.id_file)
             setData({ ...value, img: responseJson?.data?.id_file })
         }catch (e){
-            ToastAndroid.show('Ocurrió un error al subir el archivo!', ToastAndroid.SHORT);
+            try {
+                await FileSystem.copyAsync({
+                    from: pickerResult.assets[0].uri,
+                    to: fileUri,
+                });
+                setSelectedImage(fileUri);
+                console.log(fileUri)
+                setData({ ...value, img: fileUri })
+            }catch(e){
+                console.log(e)
+                ToastAndroid.show('Ocurrió un error al guardar el archivo!', ToastAndroid.SHORT);
+            }
         }
     };
 

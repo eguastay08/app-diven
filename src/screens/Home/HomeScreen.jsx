@@ -73,53 +73,92 @@ const HomeScreen=({postanswer,postAnswer})=>{
         }
     }, [postanswer]);
 
-    
+
     const syncup= async ()=>{
         setSynTxt(true)
         const resp = await AsyncStorage.getItem('@responses')
-        if(resp!==null){
-            const answ=JSON.parse(resp)
+        if (resp !== null) {
+            const answ = JSON.parse(resp);
 
-         const promises=answ.map( async (e)=>{
-               return await Axios.post(`${API_URL}/api/v1/surveys/${e.cod_survey}/answers`,e, {
+            const promises = answ.map(async (e) => {
+                const updatedAnswers = e.answers.map(async (a) => {
+                    if (a.type === 'image' && a.answer.img.startsWith('file://')) {
+                        const apiUrl = `${API_URL}/api/v1/image`;
+                        const formData = new FormData();
+                        formData.append('file', {
+                            uri: a.answer.img,
+                            type: 'image/jpeg',
+                            name: 'image.jpg',
+                        });
+
+                        try {
+                            const response = await fetch(apiUrl, {
+                                method: 'POST',
+                                headers: {
+                                    Authorization: `Bearer ${token}`,
+                                },
+                                body: formData,
+                            });
+
+                            const responseJson = await response.json();
+                            a.answer.img = responseJson?.data?.id_file;
+                            console.log(responseJson?.data?.id_file);
+                        } catch (error) {
+                            console.log('Error:', error);
+                        }
+                    }
+                    return a;
+                });
+
+                const updatedE = {...e, answers: await Promise.all(updatedAnswers)};
+                console.log(JSON.stringify(updatedE));
+
+                return Axios.post(`${API_URL}/api/v1/surveys/${updatedE.cod_survey}/answers`, updatedE, {
                     headers: {
-                        Accept: "application/json",
+                        Accept: 'application/json',
                         Authorization: `Bearer ${token}`,
                     },
                 })
                     .then((resp) => {
-                       return {
-                           error:false,
-                           status:resp.status,
-                       }
-                    })
-                    .catch(err => {
                         return {
-                            error:true,
-                            status:err.response.status,
-                            data:e
-                        }
+                            error: false,
+                            status: resp?.status,
+                        };
+                    })
+                    .catch((err) => {
+                        return {
+                            error: true,
+                            status: err?.response?.status,
+                            data: e,
+                        };
                     });
-            })
-            const  results= await Promise.all(promises)
-            const anw =Array()
-            results.map(e=>{
-                if(!e.error||e.error.e===406){
-                    setSyn((syn)=>{return syn+1})
-                }else{
-                    anw.push(e.data)
+            });
+
+            const results = await Promise.all(promises);
+
+            const anw = Array();
+            results.map((e) => {
+                if (!e.error || e.error.e === 406) {
+                    setSyn((syn) => {
+                        return syn + 1;
+                    });
+                } else {
+                    anw.push(e.data);
                 }
-            })
-            if(anw.length===0){
-                await AsyncStorage.removeItem('@responses')
-            }else{
-                await AsyncStorage.setItem('@responses',JSON.stringify(anw))
+            });
+
+            if (anw.length === 0) {
+                await AsyncStorage.removeItem('@responses');
+            } else {
+                await AsyncStorage.setItem('@responses', JSON.stringify(anw));
             }
-            setSynTxt(false)
-        }else{
-            setSynTxt(false)
-            ToastAndroid.show('Nada que Sincronizar', ToastAndroid.SHORT)
+
+            setSynTxt(false);
+        } else {
+            setSynTxt(false);
+            ToastAndroid.show('Nada que Sincronizar', ToastAndroid.SHORT);
         }
+
     }
 
     return(
