@@ -14,8 +14,7 @@ const styles = StyleSheet.create({
         marginTop: 50,
     },
     img:{
-        width:200,
-        height:150,
+        marginTop:60,
         margin:5
     },
     welcome:{
